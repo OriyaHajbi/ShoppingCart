@@ -1,17 +1,34 @@
+const fetch = require('cross-fetch');
 
 
-const getAllProducts = async (req, res) => {
+const getAllProducts = (req, res) => {
+    console.log("In getAllProducts function");
+
     try {
-        const products = await fetch('https://fakestoreapi.com/products');
+        fetch('https://fakestoreapi.com/products')
+            .then(products => products.json())
+            .then(jsonProducts => res.json(jsonProducts))
 
-        console.log("In productController");
-        console.log(products);
-
-        res.json(products);
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Failed load data from 'https://fakestoreapi.com/products'" });
     }
 }
 
-module.exports = getAllProducts;
+const getProductById = (req, res) => {
+    console.log("In getProductById function @@@");
+    try {
+        fetch(`https://fakestoreapi.com/products/${req.params.id}`)
+            .then(product => product.json())
+            .then(jsonProduct => res.json(jsonProduct))
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Failed load data from 'https://fakestoreapi.com/products'" });
+    }
+}
+
+module.exports = {
+    getAllProducts,
+    getProductById,
+};
