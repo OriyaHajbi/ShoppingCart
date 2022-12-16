@@ -1,7 +1,7 @@
 import "./ProductScreen.css"
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 
 //Actions 
@@ -9,21 +9,25 @@ import { getProductDetails } from "../redux/actions/productActions";
 import { addToCart } from "../redux/actions/cartActions";
 
 
-const ProductScreen = ({ history, match }) => {
+const ProductScreen = () => {
 
     const [qty, setQty] = useState(1);
     const dispatch = useDispatch();
     const { id } = useParams();
     const productDetails = useSelector((state) => state.getProductDetails);
     const { loading, error, product } = productDetails;
+    const navigate = useNavigate();
     useEffect(() => {
 
         if (product && id !== product.id) {
             dispatch(getProductDetails(id));
-            console.log(id);
-            console.log("product is " + product);
         }
     }, []);
+
+    const addToCardHandler = () => {
+        dispatch(addToCart(product.id));
+        navigate("/cart");
+    };
 
     return <div className="productscreen">
         {loading ? <h2>Loading...</h2> : error ? <h2>{error}</h2> : (
@@ -47,17 +51,16 @@ const ProductScreen = ({ history, match }) => {
                         <p>
                             Status: <span>In Stock</span>
                         </p>
-                        <p>
+                        {/* <p>
                             Qty
-                            <select>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
+                            <select value={qty} onChange={(e) => setQty(e.target.value)}>
+                                {[...Array(product.countInStock).keys()].map((x) => {
+                                    <option value={x + 1} key={x + 1}>x+1</option>
+                                })}
                             </select>
-                        </p>
+                        </p> */}
                         <p>
-                            <button type="button">Add to Cart</button>
+                            <button type="button" onClick={addToCardHandler}>Add to Cart</button>
                         </p>
                     </div>
                 </div>

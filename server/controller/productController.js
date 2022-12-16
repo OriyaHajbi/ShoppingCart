@@ -2,8 +2,6 @@ const fetch = require('cross-fetch');
 
 
 const getAllProducts = (req, res) => {
-    console.log("In getAllProducts function");
-
     try {
         fetch('https://fakestoreapi.com/products')
             .then(products => products.json())
@@ -16,7 +14,6 @@ const getAllProducts = (req, res) => {
 }
 
 const getProductById = (req, res) => {
-    console.log("In getProductById function @@@");
     try {
         fetch(`https://fakestoreapi.com/products/${req.params.id}`)
             .then(product => product.json())
