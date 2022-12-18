@@ -12,12 +12,10 @@ const CartItem = ({ item, qtyChangeHandler, removeFromCart }) => {
         </Link>
         <p className="cartitem_price"> ${item.price}</p>
 
-        {/* <select className="cartitem_select" >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-        </select> */}
+        <select className="cartitem_select" onChange={(e) => qtyChangeHandler(item.id, e.target.value)} value={item.qty}>
+            {[...Array(item.countInStock).keys()].map((x) =>
+                <option key={x + 1} value={x + 1}>{x + 1}</option>)}
+        </select>
 
         <button className="cartitem_deleteBtn" onClick={() => removeFromCart(item.id)}>
             <i className="fas fa-trash"></i>
