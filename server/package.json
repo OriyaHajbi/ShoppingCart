@@ -1,17 +1,14 @@
 {
-  "name": "ShoppingCart",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
     "start": "node server/server.js",
     "server": "nodemon server/server.js",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "data:import": "node server/seederScript.js",
-    "build": "react-scripts build"
+    "dev": "nodemon server/server.js",
+    "data:import": "node server/seederScript.js"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
