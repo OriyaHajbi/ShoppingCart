@@ -17,9 +17,6 @@ const getAllProducts = async (req, res) => {
 
 const getProductById = async (req, res) => {
     try {
-        // fetch(`https://fakestoreapi.com/products/${req.params.id}`)
-        //     .then(product => product.json())
-        //     .then(jsonProduct => res.json(jsonProduct))
         const product = await Product.find({ id: req.params.id });
         res.json(product);
     } catch (error) {
